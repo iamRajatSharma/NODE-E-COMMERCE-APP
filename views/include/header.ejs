@@ -8,16 +8,16 @@
     <title>Document</title>
     <link rel="stylesheet" href="/plugins/themefisher-font/style.css">
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
 
     <!-- Animate css -->
-    <link rel="stylesheet" href="plugins/animate/animate.css">
+    <link rel="stylesheet" href="/plugins/animate/animate.css">
     <!-- Slick Carousel -->
-    <link rel="stylesheet" href="plugins/slick/slick.css">
-    <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="/plugins/slick/slick.css">
+    <link rel="stylesheet" href="/plugins/slick/slick-theme.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="scss/style.css">
+    <link rel="stylesheet" href="/scss/style.css">
 </head>
 
 <body id="body">
@@ -106,7 +106,8 @@
                                     class="tf-ion-ios-search-strong"></i> Search</a>
                             <ul class="dropdown-menu search-dropdown">
                                 <li>
-                                    <form action="post"><input type="search" class="form-control"
+                                    <form action="/search" method="get">
+                                        <input type="search" name="key" class="form-control"
                                             placeholder="Search..."></form>
                                 </li>
                             </ul>

@@ -1,17 +1,36 @@
 const express = require("express");
+var sess = require("express-session");
 const conn = require("../DB/conn");
 const routes = express.Router()
+const cookieParser = require("cookie-parser");
+const { query } = require("../DB/conn");
+
+// const oneDay = 1000 * 60 * 60 * 24;
+// routes.use(sess({
+//     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+//     saveUninitialized: true,
+//     cookie: { maxAge: oneDay },
+//     resave: true
+// }));
 
 routes.get("/", (req, res) => {
-    res.render("index")
+    conn.query("select * from product_list order by rand() limit 9", (err, result) => {
+        if (err) {
+            consolr.log(err)
+        }
+        else {
+            res.render("index", { "result": result })
+        }
+    })
+
 })
 
-routes.get("/fetch", (req, res) => {
-    let email = "sharmarajat687@gmail.com"
-    conn.query("select * from user where email=?", [email], (err, result) => {
-        res.send(result)
-    })
-})
+// routes.get("/fetch", (req, res) => {
+//     let email = "sharmarajat687@gmail.com"
+//     conn.query("select * from user where email=?", [email], (err, result) => {
+//         res.send(result)
+//     })
+// })
 
 routes.get("/cart", (req, res) => {
     res.render("cart")
@@ -45,7 +64,9 @@ routes.post("/login", async (req, res) => {
         }
         else {
             if (result != '') {
-                if (result.pass === password) {
+                if (result[0].pass == password) {
+                    // sess = req.session;
+                    // sess.email = req.body.email;
                     res.redirect("/")
                 }
                 else {
@@ -64,11 +85,21 @@ routes.get("/signup", (req, res) => {
 })
 
 routes.post("/signup", (req, res) => {
+    const date = new Date();
     const { name, email, pass, mobile } = req.body
-    const data = [name, email, pass, mobile]
-    console.log(data)
-    conn.query("insert into user (name, email, pass, mobile) values (?,?,?,?)", data, (err, result)=>{
-        console.log(err.message)
+    const data = [name, email, pass, mobile, date]
+    conn.query("insert into user (name, email, pass, mobile, open_date) values (?,?,?,?,?)", data, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (result != '') {
+                res.render("signup", { "msg": "Account Created Successsfully", "alert": "alert-success", flag: 0 })
+            }
+            else {
+                res.render("signup", { "msg": "Something Error", "alert": "alert-success", flag: 1 })
+            }
+        }
     })
 })
 
@@ -98,6 +129,22 @@ routes.get("/profile", (req, res) => {
 
 routes.get("/product_list", (req, res) => {
     res.render("list")
+})
+
+routes.get("/search/:key", async (req, res) => {
+    res.render("search")
+})
+
+routes.get("/details/:id", async (req, res) => {
+    conn.query("select * from product_list where id=?", req.params.id, (err, result) => {
+        // conn.query("select * from product_list where cat=? and id!=", [result[0].cat, result[0].id], (err, related) => {
+        //     console.log(related)
+        //     // res.render("product-single", { "result": result[0], "related": related })
+        // })
+        console.log(result[0])
+        res.render("product-single", { "result": result[0] })
+    })
+    
 })
 
 module.exports = routes

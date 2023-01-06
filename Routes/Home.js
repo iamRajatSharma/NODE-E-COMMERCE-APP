@@ -4,7 +4,7 @@ const conn = require("../DB/conn");
 const routes = express.Router()
 const cookieParser = require("cookie-parser");
 const { query } = require("../DB/conn");
-
+var logged = "sharmarajat687@gmail.com"
 // const oneDay = 1000 * 60 * 60 * 24;
 // routes.use(sess({
 //     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -33,7 +33,10 @@ routes.get("/", (req, res) => {
 // })
 
 routes.get("/cart", (req, res) => {
-    res.render("cart")
+    conn.query("select * from cart where email=?", logged, (err, result) => {
+        res.render("cart", { "result": result })
+    })
+
 })
 
 routes.get("/checkout", (req, res) => {
@@ -112,7 +115,10 @@ routes.get("/faq", (req, res) => {
 })
 
 routes.get("/address", (req, res) => {
-    res.render("address")
+    conn.query("select * from address where email=?", logged, (err, result) => {
+        res.render("address", { "result": result })
+    })
+
 })
 
 routes.get("/dashboard", (req, res) => {
@@ -137,14 +143,12 @@ routes.get("/search/:key", async (req, res) => {
 
 routes.get("/details/:id", async (req, res) => {
     conn.query("select * from product_list where id=?", req.params.id, (err, result) => {
-        // conn.query("select * from product_list where cat=? and id!=", [result[0].cat, result[0].id], (err, related) => {
-        //     console.log(related)
-        //     // res.render("product-single", { "result": result[0], "related": related })
-        // })
-        console.log(result[0])
-        res.render("product-single", { "result": result[0] })
+        conn.query("select * from product_list where cat=? and id!=?", [result[0].cat, req.params.id], (err, related) => {
+            console.log(related)
+            res.render("product-single", { "result": result[0], related })
+        })
     })
-    
+
 })
 
 module.exports = routes

@@ -1,79 +1,64 @@
 <%- include("include/header.ejs") %>
-  <section class="user-dashboard page-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="list-inline dashboard-menu text-center">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="order.html">Orders</a></li>
-            <li><a class="active" href="address.html">Address</a></li>
-            <li><a href="profile-details.html">Profile Details</a></li>
-          </ul>
-          <div class="dashboard-wrapper user-dashboard">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Company</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Country</th>
-                    <th class="col-md-2 col-sm-3">Phone</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Nokia</td>
-                    <td>Adam Smith</td>
-                    <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                    <td>Bangladesh</td>
-                    <td>+884 5452 6452</td>
-                    <td>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default"><i class="tf-pencil2"
-                            aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-default"><i class="tf-ion-close"
-                            aria-hidden="true"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Samsung</td>
-                    <td>Adam Smith</td>
-                    <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                    <td>Bangladesh</td>
-                    <td>+884 5452 6452</td>
-                    <td>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default"><i class="tf-pencil2"
-                            aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-default"><i class="tf-ion-close"
-                            aria-hidden="true"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Motorola</td>
-                    <td>Adam Smith</td>
-                    <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                    <td>Bangladesh</td>
-                    <td>+884 5452 6452</td>
-                    <td>
-                      <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default"><i class="tf-pencil2"
-                            aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-default"><i class="tf-ion-close"
-                            aria-hidden="true"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+    <section class="user-dashboard page-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include("include/topnav.ejs") %>
+                        <div class="dashboard-wrapper user-dashboard">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Address</th>
+                                            <th>State</th>
+                                            <th class="col-md-2 col-sm-3">City</th>
+                                            <th>Pincode</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% result.forEach((item, i)=>{ %>
+                                            <tr>
+                                                <td>
+                                                    <%= ++i %>
+                                                </td>
+                                                <td>
+                                                    <%= item.name %>
+                                                </td>
+                                                <td>
+                                                    <%= item.mobile %>
+                                                </td>
+                                                <td>
+                                                    <%= item.address %>
+                                                </td>
+                                                <td>
+                                                    <%= item.state %>
+                                                </td>
+                                                <td>
+                                                    <%= item.city %>
+                                                </td>
+                                                <td>
+                                                    <%= item.pin %>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" class="btn btn-default"><i
+                                                                class="tf-pencil2" aria-hidden="true"></i></button>
+                                                        <button type="button" class="btn btn-default"><i
+                                                                class="tf-ion-close" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <%- include("include/footer.ejs") %>
+    </section>
+    <%- include("include/footer.ejs") %>

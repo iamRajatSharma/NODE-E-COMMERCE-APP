@@ -3,8 +3,10 @@ var sess = require("express-session");
 const conn = require("../DB/conn");
 const routes = express.Router()
 const cookieParser = require("cookie-parser");
-const { query } = require("../DB/conn");
 var logged = "sharmarajat687@gmail.com"
+const HomeControllers = require("../Controllers/HomeController")
+const CartControllers = require("../Controllers/CartController")
+const AddressControllers = require("../Controllers/AddressController")
 // const oneDay = 1000 * 60 * 60 * 24;
 // routes.use(sess({
 //     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -13,17 +15,7 @@ var logged = "sharmarajat687@gmail.com"
 //     resave: true
 // }));
 
-routes.get("/", (req, res) => {
-    conn.query("select * from product_list order by rand() limit 9", (err, result) => {
-        if (err) {
-            consolr.log(err)
-        }
-        else {
-            res.render("index", { "result": result })
-        }
-    })
-
-})
+routes.get("/", HomeControllers)
 
 // routes.get("/fetch", (req, res) => {
 //     let email = "sharmarajat687@gmail.com"
@@ -32,12 +24,7 @@ routes.get("/", (req, res) => {
 //     })
 // })
 
-routes.get("/cart", (req, res) => {
-    conn.query("select * from cart where email=?", logged, (err, result) => {
-        res.render("cart", { "result": result })
-    })
-
-})
+routes.get("/cart", CartControllers);
 
 routes.get("/checkout", (req, res) => {
     res.render("checkout")
@@ -114,12 +101,7 @@ routes.get("/faq", (req, res) => {
     res.render("faq")
 })
 
-routes.get("/address", (req, res) => {
-    conn.query("select * from address where email=?", logged, (err, result) => {
-        res.render("address", { "result": result })
-    })
-
-})
+routes.get("/address", AddressControllers)
 
 routes.get("/dashboard", (req, res) => {
     res.render("dashboard")

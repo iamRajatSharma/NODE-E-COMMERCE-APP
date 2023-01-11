@@ -29,6 +29,6 @@ app.use("/product", require("./Routes/Products"))
 
 app.listen(3001, (err) => {
     if (!err) {
-        console.log("server running")
+        console.log("server running on PORT 3001")
     }
 })

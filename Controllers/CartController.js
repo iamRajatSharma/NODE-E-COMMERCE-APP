@@ -1,12 +1,24 @@
-const express = require("express");
 const conn = require("../DB/conn");
-const CartControllers = express.Router()
 var logged = "sharmarajat687@gmail.com"
 
-CartControllers.get("/cart", (req, res) => {
+const Cart = (req, res) => {
     conn.query("select * from cart where email=?", logged, (err, result) => {
         res.render("cart", { "result": result })
     })
-})
+}
 
-module.exports = CartControllers;
+
+const AddToCart = (req, res) => {
+    res.send(req.body)
+    // conn.query("select * from cart where email=?", logged, (err, result) => {
+    //     res.render("cart", { "result": result })
+    // })
+}
+
+
+const Checkout = (req, res) => {
+    res.render("checkout")
+}
+
+
+module.exports = { Cart, Checkout, AddToCart };

@@ -111,21 +111,13 @@
 								<div class="preview-meta">
 									<ul>
 										<li>
-											<span data-toggle="modal" data-target="#product-modal">
-												<i class="tf-ion-ios-search-strong"></i>
-											</span>
-										</li>
-										<li>
-											<a href="#!"><i class="tf-ion-ios-heart"></i></a>
-										</li>
-										<li>
-											<a href="#!"><i class="tf-ion-android-cart"></i></a>
+											<a href="/details/<%= item.id %>"><i class="tf-ion-ios-eye"></i></a>
 										</li>
 									</ul>
 								</div>
 							</div>
 							<div class="product-content">
-								<h4><a href="/details/<%= item.id %> ">
+								<h4><a href="/details/<%= item.id %>">
 										<%= item.product_name %>
 									</a></h4>
 								<p class="price">₹ <%= item.mrp %>

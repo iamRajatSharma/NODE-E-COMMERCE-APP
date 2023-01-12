@@ -15,7 +15,17 @@ const AddressControllers = require("../Controllers/AddressController")
 //     resave: true
 // }));
 
-routes.get("/", HomeControllers)
+routes.get("/", HomeControllers.Home)
+
+routes.get("/contact", HomeControllers.Contact)
+
+routes.get("/about", HomeControllers.About)
+
+routes.get("/faq", HomeControllers.Faq)
+
+routes.get("/cart", CartControllers.Cart)
+
+routes.get("/checkout", CartControllers.Checkout)
 
 // routes.get("/fetch", (req, res) => {
 //     let email = "sharmarajat687@gmail.com"
@@ -24,19 +34,8 @@ routes.get("/", HomeControllers)
 //     })
 // })
 
-routes.get("/cart", CartControllers);
 
-routes.get("/checkout", (req, res) => {
-    res.render("checkout")
-})
 
-routes.get("/contact", (req, res) => {
-    res.render("contact")
-})
-
-routes.get("/about", (req, res) => {
-    res.render("about")
-})
 
 routes.get("/order", (req, res) => {
     res.render("order")
@@ -97,10 +96,6 @@ routes.get("/forget", (req, res) => {
     res.render("forget-password")
 })
 
-routes.get("/faq", (req, res) => {
-    res.render("faq")
-})
-
 routes.get("/address", AddressControllers)
 
 routes.get("/dashboard", (req, res) => {
@@ -123,14 +118,19 @@ routes.get("/search/:key", async (req, res) => {
     res.render("search")
 })
 
-routes.get("/details/:id", async (req, res) => {
-    conn.query("select * from product_list where id=?", req.params.id, (err, result) => {
-        conn.query("select * from product_list where cat=? and id!=?", [result[0].cat, req.params.id], (err, related) => {
-            console.log(related)
-            res.render("product-single", { "result": result[0], related })
+routes.get("/details/:id", (req, res) => {
+    conn.query("select * from product_list where id=?", req.params.id, (err1, result) => {
+        conn.query("select * from colors where product_id=?", req.params.id, (err2, colors) => {
+            conn.query("select * from size where product_id=?", req.params.id, (err3, size) => {
+                conn.query("select * from product_list where cat=? and id!=?", [result[0].cat, req.params.id], (err4, related) => {
+                    console.log(size)
+                    res.render("product-single", { result: result[0], related: related, colors: colors[0], size: size })
+                })
+            })
         })
     })
-
 })
+
+routes.post("/addToCart", CartControllers.AddToCart)
 
 module.exports = routes

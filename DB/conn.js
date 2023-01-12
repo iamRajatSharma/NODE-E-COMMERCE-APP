@@ -4,7 +4,8 @@ var conn = mysql.createConnection({
     user: 'localhost',
     password: 'root',
     database: 'e-commerce',
-    insecureAuth: true
+    insecureAuth: true,
+    multipleStatements: true
 });
 
 conn.connect((err, res) => {

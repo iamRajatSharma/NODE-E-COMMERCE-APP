@@ -8,8 +8,9 @@
 		.product-description {
 			text-align: justify !important;
 		}
-		.size_data{
-			display: none!important;
+
+		.size_data {
+			display: none !important;
 		}
 	</style>
 	<section class="single-product">
@@ -128,33 +129,16 @@
 														</li>
 														<% } %>
 								</ul>
-								<script>
-									
-								</script>
-							</div>
-							<div class="product-size ">
-								<span>Size:</span>
-								<div class="size_data">
-									<% size.forEach((s)=>{ %> 
-										<select class="form-control" name="size" id="<%= s.color_id %>">
-											<% if(s.s>0){ %><option value="s"><%= s.s %> </option><% } %>  
-											<% if(s.m>0){ %><option value="s"><%= s.m %> </option><% } %>
-											<% if(s.l>0){ %><option value="s"><%= s.l %> </option><% } %>
-											<% if(s.xl>0){ %><option value="s"><%= s.xl %> </option><% } %>
-											<% if(s.xxl>0){ %><option value="s"><%= s.xxl %> </option><% } %>
-										</select>
-										<% }) %> 
-								</div>
-								<script>
-									function getColor(e){
-										
-									}
-								</script>
 							</div>
 							<div class="product-quantity">
 								<span>Quantity:</span>
 								<div class="product-quantity-slider">
-									<input id="product-quantity" type="text" value="0" name="product-quantity">
+									<input type="hidden" name="color" id="color">
+									<input type="hidden" name="pro_id" value="<%= result.id %>">
+									<input type="hidden" name="price" value="<%= result.mrp %>">
+									<input type="hidden" name="name" value="<%= result.product_name %>">
+									<input type="hidden" name="image" value="<%= result.img1 %>">
+									
 								</div>
 							</div>
 							<div class="product-category">
@@ -173,8 +157,9 @@
 										</a></li>
 								</ul>
 							</div>
-							<button class="btn btn-main mt-20">Add To Cart</button>
+							<button onclick="return beforeAddToCart()" class="btn btn-main mt-20">Add To Cart</button>
 						</div>
+
 					</form>
 				</div>
 			</div>
@@ -336,7 +321,19 @@
 			</div>
 		</div>
 	</section>
-
+	<script>
+		function getColor(e) {
+			document.getElementById("color").value = e;
+		}
+		function beforeAddToCart() {
+			let color = document.getElementById("color").value;
+			if (color != '') {
+				return true
+			}
+			alert("Please Select Color")
+			return false
+		}
+	</script>
 	<script src="/script.js"></script>
 
 	<%- include("include/footer.ejs") %>

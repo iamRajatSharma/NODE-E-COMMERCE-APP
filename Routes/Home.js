@@ -7,6 +7,7 @@ var logged = "sharmarajat687@gmail.com"
 const HomeControllers = require("../Controllers/HomeController")
 const CartControllers = require("../Controllers/CartController")
 const AddressControllers = require("../Controllers/AddressController")
+const ProductController = require("../Controllers/ProductController")
 // const oneDay = 1000 * 60 * 60 * 24;
 // routes.use(sess({
 //     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
@@ -26,6 +27,8 @@ routes.get("/faq", HomeControllers.Faq)
 routes.get("/cart", CartControllers.Cart)
 
 routes.get("/checkout", CartControllers.Checkout)
+
+routes.get("/deleteCart/:id", CartControllers.DeleteCaty)
 
 // routes.get("/fetch", (req, res) => {
 //     let email = "sharmarajat687@gmail.com"
@@ -96,7 +99,7 @@ routes.get("/forget", (req, res) => {
     res.render("forget-password")
 })
 
-routes.get("/address", AddressControllers)
+routes.get("/address", AddressControllers.address)
 
 routes.get("/dashboard", (req, res) => {
     res.render("dashboard")
@@ -118,19 +121,13 @@ routes.get("/search/:key", async (req, res) => {
     res.render("search")
 })
 
-routes.get("/details/:id", (req, res) => {
-    conn.query("select * from product_list where id=?", req.params.id, (err1, result) => {
-        conn.query("select * from colors where product_id=?", req.params.id, (err2, colors) => {
-            conn.query("select * from size where product_id=?", req.params.id, (err3, size) => {
-                conn.query("select * from product_list where cat=? and id!=?", [result[0].cat, req.params.id], (err4, related) => {
-                    console.log(size)
-                    res.render("product-single", { result: result[0], related: related, colors: colors[0], size: size })
-                })
-            })
-        })
-    })
-})
+routes.get("/details/:id", ProductController.getProductDetails)
 
 routes.post("/addToCart", CartControllers.AddToCart)
+
+routes.get("/addOneItem/:id", CartControllers.AddOneItem)
+
+routes.get("/deleteOneItem/:id", CartControllers.DeleteOneItem)
+
 
 module.exports = routes

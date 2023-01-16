@@ -28,16 +28,9 @@ routes.get("/cart", CartControllers.Cart)
 
 routes.get("/checkout", CartControllers.Checkout)
 
+routes.get("/category", HomeControllers.Search)
+
 routes.get("/deleteCart/:id", CartControllers.DeleteCaty)
-
-// routes.get("/fetch", (req, res) => {
-//     let email = "sharmarajat687@gmail.com"
-//     conn.query("select * from user where email=?", [email], (err, result) => {
-//         res.send(result)
-//     })
-// })
-
-
 
 
 routes.get("/order", (req, res) => {

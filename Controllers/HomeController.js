@@ -12,13 +12,26 @@ const Home = (req, res) => {
     })
 }
 
-const Search = (req, res) => {
-    console.log(req.query)
-    conn.query("select * from product_list where cat=?", [req.query.cat], (err, result) => {
+const Category = (req, res) => {
+    conn.query("select * from product_list where cat=? order by mrp=?", [req.query.cat, req.query.price], (err, result) => {
         if (err) {
             console.log(err)
         }
         else {
+            console.log(result)
+            res.render("search", { "result": result })
+        }
+    })
+}
+
+const Search = (req, res) => {
+
+    conn.query("select * from product_list where cat like ?", '%' + req.query.key + '%', (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(result)
             res.render("search", { "result": result })
         }
     })
@@ -36,4 +49,4 @@ const Faq = (req, res) => {
     res.render("faq")
 }
 
-module.exports = { Home, Contact, About, Faq, Search };
+module.exports = { Home, Contact, About, Faq, Search, Category };

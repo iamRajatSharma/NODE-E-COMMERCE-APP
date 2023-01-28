@@ -1,13 +1,14 @@
 const conn = require("../DB/conn");
 var logged = "sharmarajat687@gmail.com"
 
+// fetch all cart items
 const Cart = (req, res) => {
     conn.query("select * from cart where email=?", logged, (err, result) => {
         res.render("cart", { "result": result })
     })
 }
 
-
+// add item to cart
 const AddToCart = (req, res) => {
     const product_id = req.body.pro_id;
     const name = req.body.name
@@ -37,28 +38,34 @@ const AddToCart = (req, res) => {
     })
 }
 
+// delete complete cart
 const DeleteCaty = (req, res) => {
     conn.query("delete from cart where email=? and id=?", [logged, req.params.id], (err, result) => {
         res.redirect("/cart")
     })
 }
 
+// increase cart item by 1
 const AddOneItem = (req, res) => {
     let product_id = req.params.id
-    conn.query("select * from cart where email=? and product_id=? ", [logged, product_id], (err, result) => {
+    let color_id = req.params.color
+    conn.query("select * from cart where email=? and product_id=? and color=? ", [logged, product_id, color_id], (err, result) => {
         let qty = parseInt(result[0].qty) + 1
-        conn.query("update cart set qty=? where email=? and product_id=?", [qty, logged, product_id], (err, result) => {
+        conn.query("update cart set qty=? where email=? and product_id=? and color=? ", [qty, logged, product_id, color_id], (err, result) => {
             res.redirect("/cart")
         })
     });
 }
 
+// delete cart item by 1
 const DeleteOneItem = (req, res) => {
     let product_id = req.params.id
-    conn.query("select * from cart where email=? and product_id=? ", [logged, product_id], (err, result) => {
+    let color_id = req.params.color
+    conn.query("select * from cart where email=? and product_id=? and color=? ", [logged, product_id, color_id], (err, result) => {
         if (result[0].qty > 1) {
+            console.log(result)
             let qty = parseInt(result[0].qty) - 1
-            conn.query("update cart set qty=? where email=? and product_id=?", [qty, logged, product_id], (err, result) => {
+            conn.query("update cart set qty=? where email=? and product_id=? and color=?", [qty, logged, product_id, color_id], (err, result) => {
                 res.redirect("/cart")
             })
         }
@@ -68,6 +75,7 @@ const DeleteOneItem = (req, res) => {
     });
 }
 
+// display checkout page
 const Checkout = (req, res) => {
     res.render("checkout")
 }

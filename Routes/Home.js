@@ -3,6 +3,7 @@ var sess = require("express-session");
 const conn = require("../DB/conn");
 const routes = express.Router()
 const cookieParser = require("cookie-parser");
+const bcrypt = require("bcrypt")
 var logged = "sharmarajat687@gmail.com"
 const HomeControllers = require("../Controllers/HomeController")
 const CartControllers = require("../Controllers/CartController")
@@ -28,7 +29,7 @@ routes.get("/cart", CartControllers.Cart)
 
 routes.get("/checkout", CartControllers.Checkout)
 
-routes.get("/category", HomeControllers.Search)
+routes.get("/category", HomeControllers.Category)
 
 routes.get("/deleteCart/:id", CartControllers.DeleteCaty)
 
@@ -41,15 +42,26 @@ routes.get("/login", (req, res) => {
     res.render("login")
 })
 
+const comparepassword = async (password, password2) => {
+    await bcrypt.compare(password, password2).then((result) => {
+        return result
+    })
+}
+
+
 routes.post("/login", async (req, res) => {
-    const { email, password } = req.body
+    let { email, password } = req.body
+
     conn.query("select * from user where email=? ", [email], (err, result) => {
         if (err) {
             res.redirect("login", { "msg": err.message })
         }
         else {
             if (result != '') {
-                if (result[0].pass == password) {
+                let checkUserPassword = comparepassword(password, result[0].pass)
+                // if (comparepassword(password, result[0].pass) == true) {
+                    if(true){
+                    console.log(email)
                     // sess = req.session;
                     // sess.email = req.body.email;
                     res.redirect("/")
@@ -65,24 +77,26 @@ routes.post("/login", async (req, res) => {
     })
 })
 
+
 routes.get("/signup", (req, res) => {
     res.render("signup")
 })
 
-routes.post("/signup", (req, res) => {
+routes.post("/signup", async (req, res) => {
     const date = new Date();
-    const { name, email, pass, mobile } = req.body
+    let { name, email, pass, mobile } = req.body
+    pass = await bcrypt.hash(pass, 10);
     const data = [name, email, pass, mobile, date]
     conn.query("insert into user (name, email, pass, mobile, open_date) values (?,?,?,?,?)", data, (err, result) => {
         if (err) {
-            console.log(err)
+            res.render("signup", { "msg": err, "alert": "alert-danger", flag: 1 })
         }
         else {
             if (result != '') {
                 res.render("signup", { "msg": "Account Created Successsfully", "alert": "alert-success", flag: 0 })
             }
             else {
-                res.render("signup", { "msg": "Something Error", "alert": "alert-success", flag: 1 })
+                res.render("signup", { "msg": "Something Error", "alert": "alert-danger", flag: 1 })
             }
         }
     })
@@ -110,17 +124,15 @@ routes.get("/product_list", (req, res) => {
     res.render("list")
 })
 
-routes.get("/search/:key", async (req, res) => {
-    res.render("search")
-})
+routes.get("/search", HomeControllers.Search)
 
 routes.get("/details/:id", ProductController.getProductDetails)
 
 routes.post("/addToCart", CartControllers.AddToCart)
 
-routes.get("/addOneItem/:id", CartControllers.AddOneItem)
+routes.get("/addOneItem/:id/color/:color", CartControllers.AddOneItem)
 
-routes.get("/deleteOneItem/:id", CartControllers.DeleteOneItem)
+routes.get("/deleteOneItem/:id/color/:color", CartControllers.DeleteOneItem)
 
 
 module.exports = routes

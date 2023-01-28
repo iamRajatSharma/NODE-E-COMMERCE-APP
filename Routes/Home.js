@@ -1,5 +1,5 @@
 const express = require("express");
-var sess = require("express-session");
+var session = require("express-session");
 const conn = require("../DB/conn");
 const routes = express.Router()
 const cookieParser = require("cookie-parser");
@@ -20,6 +20,8 @@ const ProductController = require("../Controllers/ProductController")
 routes.get("/", HomeControllers.Home)
 
 routes.get("/contact", HomeControllers.Contact)
+
+routes.post("/contact", HomeControllers.saveContact)
 
 routes.get("/about", HomeControllers.About)
 
@@ -58,12 +60,10 @@ routes.post("/login", async (req, res) => {
         }
         else {
             if (result != '') {
-                let checkUserPassword = comparepassword(password, result[0].pass)
-                // if (comparepassword(password, result[0].pass) == true) {
-                    if(true){
-                    console.log(email)
-                    // sess = req.session;
-                    // sess.email = req.body.email;
+                if (password == result[0].pass) {
+                    session = req.sess
+                    // req.sess.email = "rajat";
+                    console.log(session)
                     res.redirect("/")
                 }
                 else {
@@ -71,7 +71,7 @@ routes.post("/login", async (req, res) => {
                 }
             }
             else {
-                res.render("login", { "msg": "No Data Found", flag: 1 })
+                res.render("login", { "msg": "Email id not Exists", flag: 1 })
             }
         }
     })
@@ -85,7 +85,6 @@ routes.get("/signup", (req, res) => {
 routes.post("/signup", async (req, res) => {
     const date = new Date();
     let { name, email, pass, mobile } = req.body
-    pass = await bcrypt.hash(pass, 10);
     const data = [name, email, pass, mobile, date]
     conn.query("insert into user (name, email, pass, mobile, open_date) values (?,?,?,?,?)", data, (err, result) => {
         if (err) {

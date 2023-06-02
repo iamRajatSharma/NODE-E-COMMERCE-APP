@@ -1,11 +1,11 @@
 var mysql = require('mysql2');
 var conn = mysql.createConnection({
     host: 'localhost',
-    user: 'localhost',
-    password: 'root',
+    user: 'root',
+    password: '',
     database: 'e-commerce',
-    insecureAuth: true,
-    multipleStatements: true
+    // insecureAuth: true,
+    // multipleStatements: true
 });
 
 conn.connect((err, res) => {

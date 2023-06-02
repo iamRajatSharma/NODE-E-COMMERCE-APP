@@ -12,7 +12,6 @@
                     <div class="col-md-10 col-md-offset-1">
                         <div class="block">
                             <div class="product-list">
-                                <% if(result.length>0){ %>
                                     <form method="post">
                                         <table class="table">
                                             <thead>
@@ -25,42 +24,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% result.forEach((item)=>{ %>
                                                     <tr class="">
                                                         <td class="">
                                                             <div class="product-info">
-                                                                <img width="80" src="/img/<%= item.product_img %> "
+                                                                <img width="80" src="/img/ "
                                                                     alt="" />
                                                                 <a href="#!">
-                                                                    <%= item.product_name %>
+                                                                    qw
                                                                 </a>
                                                             </div>
                                                         </td>
                                                         <td class="">
                                                             <p style="display: contents;">₹</p>
-                                                            <%= item.price %>
+                                                           qw
                                                         </td>
                                                         <td style="font-size: 18px;">
-                                                            <%= item.color %>
+                                                            qwqw
                                                         </td>
                                                         <td class="text-center">
-                                                            <%= item.qty %>
+                                                           qqwqw
                                                         </td>
                                                         <td class="btn-group"
                                                             style="width: max-content; padding-top: 30px;">
-                                                            <a href="/deleteOneItem/<%= item.product_id %>/color/<%= item.color %>"
+                                                            <a href="/deleteOneItem/"
                                                                 class="btn btn-danger">-</a>
-                                                            <a href="/deleteCart/<%= item.id %>" class="btn">Remove</a>
-                                                            <a href="/addOneItem/<%= item.product_id %>/color/<%= item.color %>"
+                                                            <a href="/deleteCart/" class="btn">Remove</a>
+                                                            <a href="/addOneItem/"
                                                                 class="btn btn-success">+</a>
                                                         </td>
                                                     </tr>
-                                                    <% }) %>
                                             </tbody>
                                         </table>
                                         <a href="/checkout" class="btn btn-main pull-right">Checkout</a>
                                     </form>
-                                    <% }else{ %>
                                         <div class="col-md-6 col-md-offset-3">
                                             <div class="block text-center">
                                                 <i class="tf-ion-ios-cart-outline"></i>
@@ -70,7 +66,6 @@
                                                 <a href="/" class="btn btn-main mt-20">Return to shop</a>
                                             </div>
                                         </div>
-                                        <% } %>
                             </div>
                         </div>
                     </div>

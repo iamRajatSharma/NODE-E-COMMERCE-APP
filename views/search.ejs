@@ -55,36 +55,32 @@
 				<div class="col-md-9">
 					<div class="row">
 
-						<% if(result.length>0){
-							result.forEach((item)=>{
-							%>
+						
 							<div class="col-md-4">
 								<div class="product-item">
 									<div class="product-thumb">
 										<span class="bage">Sale</span>
-										<img class="img-responsive" src="/img/<%= item.img1 %>" alt="product-img" />
+										<img class="img-responsive" src="/img/" alt="product-img" />
 										<div class="preview-meta">
 											<ul>
 												<li>
-													<a href="/details/<%= item.id %>"><i class="tf-ion-ios-eye"></i></a>
+													<a href="/details/"><i class="tf-ion-ios-eye"></i></a>
 												</li>
 											</ul>
 										</div>
 									</div>
 									<div class="product-content">
-										<h4><a href="/details/<%= item.id %>">
-												<%= item.product_name %>
+										<h4><a href="/details/">
+												fdgfg
 											</a></h4>
-										<p class="price">₹ <%= item.mrp %>
+										<p class="price">₹ fgfg
 										</p>
 									</div>
 								</div>
 							</div>
-							<% }) } else{ %>
 								<div class="alert alert-danger">
 									<strong>Not Data Found</strong>
 								</div>
-								<% } %>
 
 									</d>
 					</div>

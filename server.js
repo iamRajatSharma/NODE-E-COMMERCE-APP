@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express()
-// require("./DB/conn")
+require("./DB/conn")
+require("dotenv").config()
 const bodyParser = require("body-parser");
 
 app.set("view engine", "ejs")
@@ -11,8 +12,8 @@ app.use("/", require("./Routes/authRoutes"));
 app.use("/", require("./Routes/cartRoutes"));
 
 
-app.listen(3001, (err) => {
+app.listen(process.env.PORT, (err) => {
     if (!err) {
-        console.log("server running on PORT 3001")
+        console.log(`server running on PORT ${process.env.PORT}`)
     }
 })

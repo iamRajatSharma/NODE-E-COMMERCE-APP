@@ -1,11 +1,13 @@
 var mysql = require('mysql2');
+require("dotenv").config()
+
 var conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'e-commerce',
-    // insecureAuth: true,
-    // multipleStatements: true
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    insecureAuth: true,
+    multipleStatements: true
 });
 
 conn.connect((err, res) => {
@@ -13,7 +15,7 @@ conn.connect((err, res) => {
         console.log(err)
     }
     else {
-        console.log("DB Success")
+        console.log("DB Connected Successfully")
     }
 });
 

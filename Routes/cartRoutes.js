@@ -4,6 +4,8 @@ const cartController = require("../Controllers/cartController")
 
 routes.get("/cart", cartController.cart)
 
+routes.get("/checkout", cartController.checkout)
+
 
 
 module.exports = routes

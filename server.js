@@ -10,6 +10,7 @@ app.use("/", require("./Routes/homeRoutes"));
 app.use("/user", require("./Routes/userRoutes"));
 app.use("/", require("./Routes/authRoutes"));
 app.use("/", require("./Routes/cartRoutes"));
+app.use("/", require("./Routes/productsRoutes"));
 
 
 app.listen(process.env.PORT, (err) => {

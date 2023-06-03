@@ -1,17 +1,17 @@
 const address = (req, res) => {
-    res.render("address")
+    res.render("address", { title: "Manage Address || E-shop" })
 }
 
 const dashboard = (req, res) => {
-    res.render("dashboard")
+    res.render("dashboard", { title: "Manage Dashboard || E-shop" })
 }
 
 const order = (req, res) => {
-    res.render("order")
+    res.render("order", { title: "Manage Order || E-shop" })
 }
 
 const profile = (req, res) => {
-    res.render("profile")
+    res.render("profile", { title: "Manage Profile || E-shop" })
 }
 
 module.exports = {

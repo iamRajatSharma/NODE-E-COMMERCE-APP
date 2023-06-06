@@ -20,9 +20,9 @@
 									aria-labelledby="headingOne">
 									<div class="panel-body">
 										<ul>
-											<li><a href="/category?cat=Girls&price=asc">Girls</a></li>
-											<li><a href="/category?cat=Childrens&price=asc">Childrens</a></li>
-											<li><a href="/category?cat=Mens&price=asc">Mens</a></li>
+											<li><a href="/category?cat=girls&price=<%= price %>">Girls</a></li>
+											<li><a href="/category?cat=childrens&price=<%= price %>">Childrens</a></li>
+											<li><a href="/category?cat=mens&price=<%= price %>">Mens</a></li>
 										</ul>
 									</div>
 								</div>
@@ -31,23 +31,23 @@
 								<div class="panel-heading" role="tab" id="headingTwo">
 									<h4 class="panel-title">
 										<a class="collapsed" role="button" data-toggle="collapse"
-											data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+											data-parent="#accordion" href="#collapseTwo" aria-expanded="true"
 											aria-controls="collapseTwo">
 											Price
 										</a>
 									</h4>
 								</div>
-								<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+								<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingTwo">
 									<div class="panel-body">
 										<ul>
-											<li><a href="/category?cat=?price=desc">High to Low</a></li>
-											<li><a href="?price=asc">Low to High</a></li>
+											<li><a href="/category?cat=<%= cat %>&price=desc">High to Low</a></li>
+											<li><a href="/category?cat=<%= cat %>&price=asc">Low to High</a></li>
 										</ul>
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 
 					</div>
@@ -75,7 +75,8 @@
 										<h4><a href="/details/<%= item.id %>">
 												<%= item.product_name %>
 											</a></h4>
-										<p class="price">₹ <%= item.mrp %>
+										<p class="price"><b><del class="text-danger">₹ <%= item.product_price %></del> ₹
+												<%= item.selling_price %></b>
 										</p>
 									</div>
 								</div>

@@ -12,51 +12,53 @@
                     <div class="col-md-10 col-md-offset-1">
                         <div class="block">
                             <div class="product-list">
+                                <% if(result.length>0){ %>
                                     <form method="post">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th class="">Item Name</th>
                                                     <th class="">Item_Price</th>
-                                                    <th>Color</th>
                                                     <th>Quantity</th>
                                                     <th class="">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <% result.forEach((item)=>{ %>
                                                     <tr class="">
                                                         <td class="">
-                                                            <div class="product-info">
-                                                                <img width="80" src="/img/ "
-                                                                    alt="" />
-                                                                <a href="#!">
-                                                                    qw
+                                                            <div class="product-info"><a
+                                                                    href="/details/<%= item.product_id %>">
+                                                                    <img width="80" src="/img/<%= item.product_img %> "
+                                                                        alt="" />
+
+                                                                    <%= item.product_name %>
                                                                 </a>
                                                             </div>
                                                         </td>
                                                         <td class="">
                                                             <p style="display: contents;">₹</p>
-                                                           qw
-                                                        </td>
-                                                        <td style="font-size: 18px;">
-                                                            qwqw
+                                                            <%= item.price %>
                                                         </td>
                                                         <td class="text-center">
-                                                           qqwqw
+                                                            <%= item.qty %>
                                                         </td>
                                                         <td class="btn-group"
                                                             style="width: max-content; padding-top: 30px;">
-                                                            <a href="/deleteOneItem/"
+                                                            <a href="/deleteOneItem/<%= item.product_id %>"
                                                                 class="btn btn-danger">-</a>
-                                                            <a href="/deleteCart/" class="btn">Remove</a>
-                                                            <a href="/addOneItem/"
+                                                            <a href="/deleteCart/<%= item.product_id %>"
+                                                                class="btn">Remove</a>
+                                                            <a href="/addOneItem/<%= item.product_id %>"
                                                                 class="btn btn-success">+</a>
                                                         </td>
                                                     </tr>
+                                                    <% }) %>
                                             </tbody>
                                         </table>
                                         <a href="/checkout" class="btn btn-main pull-right">Checkout</a>
                                     </form>
+                                    <% } else{ %>
                                         <div class="col-md-6 col-md-offset-3">
                                             <div class="block text-center">
                                                 <i class="tf-ion-ios-cart-outline"></i>
@@ -66,6 +68,7 @@
                                                 <a href="/" class="btn btn-main mt-20">Return to shop</a>
                                             </div>
                                         </div>
+                                        <% } %>
                             </div>
                         </div>
                     </div>

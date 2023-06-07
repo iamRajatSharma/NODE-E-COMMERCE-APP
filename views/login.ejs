@@ -8,10 +8,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
-					<% if(typeof msg!="undefined" ){ %>
-						<div class="alert alert-danger">
+					<% if(typeof error!="undefined" ){ %>
+						<div class="alert alert-<%= color %> text-center">
 							<strong>
-								<%= msg %>
+								<%= error %>
 							</strong>
 						</div>
 						<% } %>
@@ -20,7 +20,7 @@
 									<img src="images/logo.png" alt="">
 								</a>
 								<h2 class="text-center">Welcome Back</h2>
-								<form class="text-left clearfix" action="/login" method="post">
+								<form class="text-left clearfix" action="" method="POST">
 									<div class="form-group">
 										<input type="email" name="email" class="form-control" placeholder="Email">
 									</div>
